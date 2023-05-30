@@ -1,3 +1,6 @@
+<?php
+  require "data.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,13 +14,17 @@
   <main class="main">
     <?php require "header.php"; ?>
     <h2 class="form-title">New Movie</h2>
-    <form class="form" method="post">
+    <form class="form" method="post" action="index.php">
       <input type="text" class="form-control" name="movie_title" placeholder="Movie Title" required>
       <input type="text" class="form-control" name="director" placeholder="Director" required>
       <input type="number" class="form-control" name="year" placeholder="Year" required>
-      <select class="form-select" name="genre_id">
+      <select class="form-select" name="genre">
         <option value="">Select a Genre</option>
-        <option value="Fantasy">Fantasy</option>
+        <?php foreach ($genres as $genre) : ?>
+        <option value="<?php echo $genre; ?>">
+          <?php echo $genre; ?>
+        </option>
+        <?php endforeach; ?>
       </select>
       <button type="submit" class="button">Add Movie</button>
     </form>
