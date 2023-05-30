@@ -16,8 +16,11 @@
     <h2 class="form-title">New Movie</h2>
     <form class="form" method="post" action="index.php">
       <input type="text" class="form-control" name="movie_title" placeholder="Movie Title" required>
+      <div class="error text-danger"></div>
       <input type="text" class="form-control" name="director" placeholder="Director" required>
+      <div class="error text-danger"></div>
       <input type="number" class="form-control" name="year" placeholder="Year" required>
+      <div class="error text-danger"></div>
       <select class="form-select" name="genre">
         <option value="">Select a Genre</option>
         <?php foreach ($genres as $genre) : ?>
@@ -26,6 +29,7 @@
         </option>
         <?php endforeach; ?>
       </select>
+      <div class="error text-danger"></div>
       <button type="submit" class="button">Add Movie</button>
     </form>
   </main>
