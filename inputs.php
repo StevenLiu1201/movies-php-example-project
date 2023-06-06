@@ -21,13 +21,13 @@
   required
   value="<?php echo $movie['year'] ?? ''; ?>">
 <div class="error"><?php echo $errors['year'] ?? ''; ?></div>
-<select class="form-select" name="genre">
+<select class="form-select" name="genre_title">
   <option value="">Select a Genre</option>
   <?php foreach ($genres as $genre) : ?>
   <option value="<?php echo $genre; ?>" 
-    <?php if (isset($movie['genre']) && $genre === $movie['genre']) : ?> selected <?php endif; ?>>
+    <?php if (isset($movie['genre_title']) && $genre === $movie['genre_title']) : ?> selected <?php endif; ?>>
     <?php echo $genre; ?>
   </option>
   <?php endforeach; ?>
 </select>
-<div class="error text-danger"><?php echo $errors['genre'] ?? ''; ?></div>
+<div class="error text-danger"><?php echo $errors['genre_title'] ?? ''; ?></div>

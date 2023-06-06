@@ -10,7 +10,7 @@
   // year is required | numeric only
   // genre is required | must be in the list of genres
   function validate($movie) {
-    $fields = ['movie_title', 'director', 'year', 'genre'];
+    $fields = ['movie_title', 'director', 'year', 'genre_title'];
     $errors = [];
     global $genres;
 
@@ -37,7 +37,7 @@
             $errors[$field] = 'Year must contain only numbers';
           }
           break;
-        case 'genre':
+        case 'genre_title':
           if (empty($movie[$field])) {
             $errors[$field] = 'Genre is required';
           } else if (!in_array($movie[$field], $genres)) {
@@ -81,12 +81,12 @@
       'movie_title' => $movie['movie_title'],
       'director' => $movie['director'],
       'year' => $movie['year'],
-      'genre' => $movie['genre']
+      'genre_title' => $movie['genre_title']
     ]);
 
     $_SESSION['movies'] = $movies;
 
-    return end($movies);
+    return end($movies)['movie_id'];
   }
 
   function updateMovie ($movie) {
@@ -101,7 +101,7 @@
 
     $_SESSION['movies'] = $movies;
 
-    return $movie;
+    return $movie['movie_id'];
   }
 
   function deleteMovie ($movie_id) {
@@ -113,5 +113,5 @@
 
     $_SESSION['movies'] = $movies;
 
-    return $movies;
+    return true;
   } 

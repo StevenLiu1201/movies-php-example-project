@@ -9,9 +9,9 @@
     $errors = validate($movie);
 
     if (count($errors) === 0) {
-      $movie = addMovie($movie);
+      $movie_id = addMovie($movie);
 
-      header("Location: movie.php?id=" . $movie['movie_id']);
+      header("Location: movie.php?id=" . $movie_id);
     }
     
   }

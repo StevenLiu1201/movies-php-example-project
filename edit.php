@@ -7,9 +7,9 @@
     $errors = validate($movie);
     
     if (count($errors) === 0) {
-      updateMovie($movie);
+      $movie_id = updateMovie($movie);
       
-      header("Location: movie.php?id=" . $_GET['id']);
+      header("Location: movie.php?id=" . $movie_id);
     }
   } else if (isset($_GET['id'])) {
     $movie = getMovie($_GET['id']);
