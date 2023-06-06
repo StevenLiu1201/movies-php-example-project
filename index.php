@@ -1,22 +1,11 @@
 <?php
   require "data.php";
-
-  if (isset($_POST['movie_title'])) {
-    array_push($movies, [
-      'movie_id' => end($movies)['movie_id'] + 1,
-      'movie_title' => $_POST['movie_title'],
-      'director' => $_POST['director'],
-      'year' => $_POST['year'],
-      'genre' => $_POST['genre']
-    ]);
-
-    $_SESSION['movies'] = $movies;
-  }
+  require "functions.php";
 
   if (isset($_GET['search'])) {
-    $movies = array_filter($movies, function ($movie) {
-      return strpos(strtolower($movie['movie_title']), strtolower($_GET['search'])) !== false;
-    });
+    $movies = searchMovies($_GET['search']);
+  } else {
+    $movies = getMovies();
   }
 ?>
 <!DOCTYPE html>
