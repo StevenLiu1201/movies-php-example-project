@@ -51,6 +51,10 @@ html, body {
   font-size: 1rem;
 }
 
+.form-control[type="file"] {
+  padding: .375rem .75rem;
+}
+
 .button {
   padding: 15px;
   background-color: #092441;
@@ -125,6 +129,12 @@ html, body {
   font-style: italic;
   font-weight: normal;
   margin: 0 0 15px 0;
+}
+
+.movie-poster { 
+  width: 200px;
+  height: 300px;
+  object-fit: contain;
 }
 
 .form-title {
