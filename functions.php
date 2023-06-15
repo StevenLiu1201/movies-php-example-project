@@ -51,6 +51,33 @@
     return $errors;
   }
 
+  // savePoster
+  // process uploaded image for movie poster
+  function savePoster ($movie_id) {
+    // file data $_FILES['poster']
+    $poster = $_FILES['poster'];
+
+    if ($poster['error'] === UPLOAD_ERR_OK) {
+      // get file extension
+      $ext = pathinfo($poster['name'], PATHINFO_EXTENSION);
+      $filename = $movie_id . '.' . $ext;
+
+      if (!file_exists('posters/')) {
+        mkdir('posters/');
+      }
+
+      $dest = 'posters/' . $filename;
+
+      if (file_exists($dest)) {
+        unlink($dest);
+      }
+
+      return move_uploaded_file($poster['tmp_name'], $dest);
+    }
+
+    return false;
+  }
+
   function getMovies () {
     global $db;
     $sql = "SELECT * FROM movies";
@@ -93,7 +120,10 @@
       'genre_id' => $genre_id
     ]);
 
-    return $db->lastInsertId();
+    $movie_id = $db->lastInsertId();
+    savePoster($movie_id);
+
+    return $movie_id;
   }
 
   function updateMovie ($movie) {
@@ -111,6 +141,8 @@
       'genre_id' => $genre_id,
       'movie_id' => $movie['movie_id']
     ]);
+
+    savePoster($movie['movie_id']);
 
     return $movie['movie_id'];
   }

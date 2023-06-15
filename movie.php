@@ -27,6 +27,12 @@
     <?php require "header.php"; ?>
     <section class="movie-details">
       <a class="movie-edit" href="edit.php?id=<?php echo $movie['movie_id']; ?>">Edit</a>
+      <?php if (file_exists('posters/' . $movie['movie_id'] . '.jpg')) :?>
+      <img 
+        class="movie-poster" 
+        src="posters/<?php echo $movie['movie_id']; ?>.jpg"
+        alt="<?php echo $movie['movie_title']; ?>">
+      <?php endif; ?>
       <h2 class="movie-title"><?php echo $movie['movie_title']; ?> <span class="movie-year">(<?php echo $movie['year']; ?>)</span></h2>
       <h4 class="movie-genre"><?php echo $movie['genre_title']; ?></h4>
       

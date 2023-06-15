@@ -25,7 +25,15 @@
     </form>
     <section class="movies">
       <?php foreach ($movies as $movie) : ?>
-      <a class="movie" href="movie.php?id=<?php echo $movie['movie_id']; ?>"><?php echo $movie['movie_title']; ?></a>
+      <?php if (file_exists("posters/{$movie['movie_id']}.jpg")) : ?>
+        <a class="movie border-0 p-0" href="movie.php?id=<?php echo $movie['movie_id']; ?>">
+          <img class="movie-poster" src="posters/<?php echo $movie['movie_id']; ?>.jpg" alt="<?php echo $movie['movie_title']; ?>">
+        </a>
+      <?php else : ?>
+        <a class="movie" href="movie.php?id=<?php echo $movie['movie_id']; ?>">
+          <?php echo $movie['movie_title']; ?>
+        </a>
+      <?php endif; ?>
       <?php endforeach; ?>
     </section>
   </main>
