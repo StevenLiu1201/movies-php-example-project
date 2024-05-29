@@ -12,18 +12,16 @@
       'genre' => $_POST['genre']
     ];
 
-    array_map(function($movie) use ($new){
+    $movies = array_map(function($movie) use ($new){
       
       if($movie['movie_id'] == $new['movie_id']){
-        // return the new movie 
-        var_dump('return new');
-        
+        // return the new movie        
         return $new;
-      }
+      }else{
+        return $movie;
 
-      // return the $movie
-      return $movie;
-    },$movies);
+      }
+    }, $movies);
 
     // update the session as well
     $_SESSION['movies'] = $movies;
