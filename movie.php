@@ -1,11 +1,10 @@
 <?php
   require "data.php";
+  require "function.php";
 
   if (isset($_GET['id'])) {
-    $movie = current(array_filter($movies, function ($movie) {
-      return $movie['movie_id'] == $_GET['id'];
-    }));
-
+    $movie = getMovie($_GET['id']);
+    
     if (!$movie) {
       // go back to index.php
       header("Location: index.php");

@@ -1,16 +1,15 @@
 <?php
   require "data.php";
+  require "function.php";
 
   if (isset($_POST['movie_title'])) {
-    array_push($movies, [
-      'movie_id' => end($movies)['movie_id'] + 1,
-      'movie_title' => $_POST['movie_title'],
-      'director' => $_POST['director'],
-      'year' => $_POST['year'],
-      'genre' => $_POST['genre']
-    ]);
 
-    $_SESSION['movies'] = $movies;
+    $movie = sanitize($_POST);
+    $errors = validate($movie);
+
+
+    exit;
+    addMovie($_POST);
   }
 
   if (isset($_GET['search'])) {

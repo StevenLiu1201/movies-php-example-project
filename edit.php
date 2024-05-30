@@ -1,40 +1,19 @@
 <?php
   require "data.php";
+  require "function.php";
 
 
   // you can is isset post to check, or use this to check if a form has been submit
   if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    $new = [
-      'movie_id' => $_POST['movie_id'], 
-      'movie_title' => $_POST['movie_title'],
-      'director' => $_POST['director'],
-      'year' => $_POST['year'],
-      'genre' => $_POST['genre']
-    ];
+    
+    updateMovie($_POST);
 
-    $movies = array_map(function($movie) use ($new){
-      
-      if($movie['movie_id'] == $new['movie_id']){
-        // return the new movie        
-        return $new;
-      }else{
-        return $movie;
-
-      }
-    }, $movies);
-
-    // update the session as well
-    $_SESSION['movies'] = $movies;
-
-    // get a problem, when i back to movie php, it did not get the value from session, still the elder data.
     header("Location: movie.php?id=" . $_POST['movie_id']);
   }
 
 
   if (isset($_GET['id'])) {
-    $movie = current(array_filter($movies, function ($movie) {
-      return $movie['movie_id'] == $_GET['id'];
-    }));
+    $movie = getMovie($_GET['id']);
 
     if (!$movie) {
       // go back to movie.php
