@@ -52,9 +52,14 @@
   }
 
   function getMovies () {
-    global $movies;
+    global $db;
+
+    $sql = "select * from movies";
+    $result = $db->query($sql);
+    $movies = $result->fetchAll();
 
     return $movies;
+
   }
 
   function searchMovies ($search) {
@@ -66,27 +71,40 @@
   }
 
   function getMovie ($movie_id) {
-    global $movies;
+    global $db;
+    global $genres;
 
-    return current(array_filter($movies, function ($movie) use ($movie_id) {
-      return $movie['movie_id'] == $movie_id;
-    }));
+    // prepared statement
+    $sql = "select * from movies join genres on movies.genre_id = genres.genre_id where movie_id = :movie_id";
+
+    //send prepared statement to db
+    $stmt = $db->prepare($sql);
+    //bind data and execute
+    $stmt ->execute(['movie_id' => $movie_id]);
+
+    $movie = $stmt->fetch();
+
+    return $movie;
+
   }
 
   function addMovie ($movie) {
-    global $movies;
+    global $db;
+    global $genres;
 
-    array_push($movies, [
-      'movie_id' => end($movies)['movie_id'] + 1,
-      'movie_title' => $movie['movie_title'],
-      'director' => $movie['director'],
-      'year' => $movie['year'],
-      'genre_title' => $movie['genre_title']
-    ]);
+    $genre_id = array_search($movie['genre_title'],$genres) +1;
 
-    $_SESSION['movies'] = $movies;
+    $sql = "insert into movies (movie_title, director,year,genre_id) values ('{:movie_title,:director,:year,:genre_id)";
 
-    return end($movies)['movie_id'];
+    $stmt = $db->prepare($sql);
+    $stmt ->execute(['movie_title' => $movie['movie_title'],
+    'director' => $movie['director'],
+    'year' => $movie['year'],
+    'genre_id' => $genre_id]);
+
+    $result = $db->exec($stmt); //return the number of row effected
+
+    return $db->lastInsertId();
   }
 
   function updateMovie ($movie) {

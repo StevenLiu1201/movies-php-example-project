@@ -28,7 +28,7 @@
     <section class="movie-details">
       <a class="movie-edit" href="edit.php?id=<?php echo $movie['movie_id']; ?>">Edit</a>
       <h2 class="movie-title"><?php echo $movie['movie_title']; ?> <span class="movie-year">(<?php echo $movie['year']; ?>)</span></h2>
-      <h4 class="movie-genre"><?php echo $movie['genre_title']; ?></h4>
+      <h4 class="movie-genre"><?php echo $movie['genre_id']; ?></h4>
       
       Director<br><strong><?php echo $movie['director']; ?></strong>
       
