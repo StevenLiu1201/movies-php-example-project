@@ -29,7 +29,7 @@
   <main class="main">
     <?php require "header.php"; ?>
     <h2 class="form-title">New Movie</h2>
-    <form class="form" method="post">
+    <form class="form" method="post" enctype="multipart/form-data">
       <?php require "inputs.php"; ?>
       <button type="submit" class="button">Add Movie</button>
     </form>

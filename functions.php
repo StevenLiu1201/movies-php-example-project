@@ -51,6 +51,36 @@
     return $errors;
   }
 
+  // process upload image for movie poster
+  function savePoster($movie_id){
+    // get file data and save to variable
+    $poster = $_FILES['poster']; // we define the upload file name as poster in data.php
+
+    //check for errors
+    if($poster['error'] === UPLOAD_ERR_OK){
+      // get file extension
+      $ext = pathinfo($poster['name'],PATHINFO_EXTENSION);
+      // 2.jpg
+      $filename = $movie_id . ".{$ext}";
+
+      //check if poster folder exist, if not create
+      if(!file_exists('posters')){
+        mkdir('posters');
+      }
+
+      $dest = 'posters/' . $filename;
+
+      // if the file exits
+      if(file_exists($dest)){
+        //delete file
+
+        unlink($dest);
+      }
+
+      return move_uploaded_file($poster['tmp_name'],$dest);
+    }
+  }
+
   function getMovies () {
     global $db;
     $sql = "SELECT * FROM movies";
@@ -93,7 +123,11 @@
       'genre_id' => $genre_id
     ]);
 
-    return $db->lastInsertId();
+    $movie_id = $db->lastInsertId();
+
+    savePoster($movie_id);
+
+    return $movie_id;
   }
 
   function updateMovie ($movie) {
@@ -111,6 +145,8 @@
       'genre_id' => $genre_id,
       'movie_id' => $movie['movie_id']
     ]);
+
+    savePoster($movie['movie_id']);
 
     return $movie['movie_id'];
   }

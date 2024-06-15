@@ -31,3 +31,9 @@
   <?php endforeach; ?>
 </select>
 <div class="error text-danger"><?php echo $errors['genre_title'] ?? ''; ?></div>
+
+<input 
+      type="file"
+      class="form-control"
+      name="poster"
+      accept=".jpg">

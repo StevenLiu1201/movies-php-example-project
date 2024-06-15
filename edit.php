@@ -35,7 +35,7 @@
   <main class="main">
     <?php require "header.php"; ?>
     <h2 class="form-title">Edit Movie</h2>
-    <form class="form" method="post">
+    <form class="form" method="post" enctype="multipart/form-data">
       <input type="hidden" name="movie_id" value="<?php echo $movie['movie_id']; ?>">
       <?php require "inputs.php"; ?>
       <button type="submit" class="button">Update Movie</button>
